@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar de Baja - Inventarios</title>
+    <link rel="stylesheet" href="../../Style.css">
+</head>
+<body>
+
+    <header class="appbar-flutter">
+        <div class="logo-appbar">
+            <div class="logo-icon">📦</div>
+            <div class="logo-texto">
+                <h1>Inventarios</h1>
+                <p>Gestión de Recursos</p>
+            </div>
+        </div>
+
+        <ul class="menu-appbar">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="registrar-llegada.html">Registrar Llegada</a></li>
+            <li><a href="asignar-equipo.html">Asignar Equipo</a></li>
+            <li><a href="dar-baja.html" class="activo">Dar de Baja</a></li>
+            <li><a href="consultar.html">Consultar</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+
+        <div class="usuario-appbar">
+            <div class="usuario-info">
+                <span class="usuario-nombre" id="usuario-nombre">Usuario</span>
+                <span class="usuario-rol">Sistema</span>
+            </div>
+            <button class="btn-salir-appbar" id="btn-salir">Salir</button>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <div class="encabezado-pagina">
+            <h1>Dar de Baja</h1>
+            <p>Retire elementos del inventario</p>
+        </div>
+
+        <div class="formulario-container">
+            <form id="form-baja" class="formulario-principal">
+                
+                <fieldset class="fieldset-seccion">
+                    <legend>Paso 1: Seleccionar Elemento</legend>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario full-width">
+                            <label class="etiqueta-campo">Serial o Código *</label>
+                            <div style="display: flex; gap: 12px;">
+                                <input type="text" id="serial-baja" class="input-campo" placeholder="Ingrese serial o código" style="flex: 1;" required>
+                                <button type="button" id="btn-buscar-baja" class="btn-primario">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="info-elemento-baja" style="display: none;">
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; border-left: 4px solid #2a5298;">
+                            <p><strong>Descripción:</strong> <span id="desc-baja">-</span></p>
+                            <p><strong>Serial:</strong> <span id="serial-baja-info">-</span></p>
+                            <p><strong>Condición:</strong> <span id="cond-baja">-</span></p>
+                            <p><strong>Estado:</strong> <span id="estado-baja">-</span></p>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset id="fieldset-baja" class="fieldset-seccion" style="display: none;">
+                    <legend>Paso 2: Información de Baja</legend>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario full-width">
+                            <label class="etiqueta-campo">Motivo *</label>
+                            <textarea id="motivo-baja" class="textarea-campo" placeholder="Describa el motivo de la baja" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Fecha *</label>
+                            <input type="date" id="fecha-baja" class="input-campo" required>
+                        </div>
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Destino *</label>
+                            <select id="destino-baja" class="select-campo" required>
+                                <option value="">-- Seleccionar --</option>
+                                <option value="Entrada">Entrada de Almacén</option>
+                                <option value="Ambiental">Baja Ambiental</option>
+                                <option value="Desecho">Desecho/Basura</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <fieldset id="opciones-ambiental" class="fieldset-seccion" style="display: none; border: 1px solid #ddd;">
+                        <legend>Información Ambiental</legend>
+
+                        <div class="fila-formulario">
+                            <div class="campo-formulario">
+                                <label class="etiqueta-campo">Tipo de Residuo</label>
+                                <input type="text" id="tipo-residuo" class="input-campo" placeholder="Electrónico, Metálico">
+                            </div>
+                            <div class="campo-formulario">
+                                <label class="etiqueta-campo">Empresa Responsable</label>
+                                <input type="text" id="empresa-ambiental" class="input-campo" placeholder="Nombre empresa">
+                            </div>
+                        </div>
+
+                        <div class="fila-formulario">
+                            <div class="campo-formulario full-width">
+                                <label class="etiqueta-campo">Documentos Ambientales</label>
+                                <input type="file" id="docs-ambiental" class="input-campo" multiple accept=".pdf,.jpg,.png">
+                                <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Ruta: \\Servidor\Inventario\Bajas\Ambiental\</p>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset-seccion" style="border: 1px solid #ddd;">
+                        <legend>Acta de Baja</legend>
+
+                        <div class="fila-formulario">
+                            <div class="campo-formulario">
+                                <label class="etiqueta-campo">Número de Acta</label>
+                                <input type="text" id="numero-acta" class="input-campo" placeholder="Auto-generado" readonly>
+                            </div>
+                            <div class="campo-formulario">
+                                <label class="etiqueta-campo">Fecha del Acta *</label>
+                                <input type="date" id="fecha-acta" class="input-campo" required>
+                            </div>
+                        </div>
+
+                        <div class="fila-formulario">
+                            <div class="campo-formulario full-width">
+                                <label class="etiqueta-campo">Responsable *</label>
+                                <input type="text" id="responsable-acta" class="input-campo" placeholder="Nombre completo" required>
+                            </div>
+                        </div>
+
+                        <div class="fila-formulario">
+                            <div class="campo-formulario">
+                                <label>
+                                    <input type="checkbox" id="requiere-firma-baja">
+                                    Requiere Firma Digital
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="firma-baja" style="display: none;">
+                            <p style="margin-top: 15px; margin-bottom: 12px; font-weight: 600;">Dibuje su firma:</p>
+                            <canvas id="canvas-firma-baja" width="500" height="120" style="border: 2px solid #ddd; border-radius: 8px; display: block; margin-bottom: 12px; cursor: crosshair;"></canvas>
+                            <button type="button" id="btn-limpiar-firma-baja" class="btn-secundario">Limpiar Firma</button>
+                        </div>
+
+                        <div id="vista-acta-baja" style="display: none; margin-top: 25px;">
+                            <div class="vista-previa-acta">
+                                <div class="acta-titulo">ACTA DE BAJA</div>
+                                <div class="acta-contenido">
+                                    <div class="acta-linea">
+                                        <strong>Fecha:</strong> <span id="acta-fecha-baja">-</span>
+                                    </div>
+                                    <div class="acta-linea">
+                                        <strong>Elemento:</strong> <span id="acta-desc-baja">-</span>
+                                    </div>
+                                    <div class="acta-linea">
+                                        <strong>Motivo:</strong> <span id="acta-motivo-baja">-</span>
+                                    </div>
+                                    <div class="acta-linea">
+                                        <strong>Destino:</strong> <span id="acta-destino-baja">-</span>
+                                    </div>
+                                    <div class="acta-linea">
+                                        <strong>Responsable:</strong> <span id="acta-resp-baja">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                                <p style="margin: 0 0 12px 0; font-weight: 700;">Guardar acta como PDF</p>
+                                <input type="file" id="archivo-acta-baja" class="input-campo" accept=".pdf" style="margin-top: 8px;">
+                                <p id="ruta-baja-info" style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Ruta: \\Servidor\Inventario\Bajas\Desecho\</p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </fieldset>
+
+                <div class="grupo-botones">
+                    <button type="submit" id="btn-finalizar-baja" class="btn-primario" style="display: none;">Finalizar Baja</button>
+                    <a href="inicio.html" class="btn-terciario">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-app">
+        <p>&copy; 2026 Inventarios - Gestión de Recursos</p>
+    </footer>
+
+    <script src="../Funcionalidades/global.js"></script>
+    <script src="funciones/bajas.js"></script>
+</body>
+</html>

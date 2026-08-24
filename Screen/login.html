@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hmau Inventarios</title>
+    <link rel="stylesheet" href="../../Style.css">
+</head>
+<body class="fondo-login">
+
+    <div class="contenedor-login-dual">
+        <!--- FORMULARIO -->
+        <div class="mitad-formulario">
+            <div class="tarjeta-login">
+                <div class="cabeza-login">
+                    <h1 class="titulo-login">Hmau Inventarios</h1>
+                    <p class="subtitulo-login">Sistema de Gestión</p>
+                </div>
+
+                <form id="formulario-login" class="formulario-login">
+                    <div class="grupo-input">
+                        <label for="email-usuario" class="etiqueta-login">Email</label>
+                        <input 
+                            type="email" 
+                            id="email-usuario" 
+                            class="input-login" 
+                            placeholder="usuario@freseniusmedicalcare.com" 
+                            required
+                        >
+                    </div>
+
+                    <div class="grupo-input">
+                        <label for="password-usuario" class="etiqueta-login">Contraseña</label>
+                        <input 
+                            type="password" 
+                            id="password-usuario" 
+                            class="input-login" 
+                            placeholder="••••••••" 
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn-login">Iniciar Sesión</button>
+                </form>
+
+                <div id="mensaje-error" class="alerta-login"></div>
+
+                <div class="caja-usuarios">
+                    <h3 class="titulo-usuarios">Usuarios de Prueba</h3>
+                    <ul class="lista-usuarios">
+                        <li>harold.montenegro@freseniusmedicalcare.com</li>
+                        <li>edwar.ardila@freseniusmedicalcare.com</li>
+                    </ul>
+                    <div class="info-contrasena">
+                        <p>Contraseña: <code class="codigo-contrasena">Admin123*+</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MITAD DERECHA - DISEÑO LIBRE -->
+        <div class="mitad-decoracion">
+            <div class="contenido-deco">
+                <div class="deco-grande">📦</div>
+                <h2 class="titulo-deco">Gestiona tu Inventario</h2>
+                <p class="parrafo-deco">Controla entrada, asignación y baja de elementos de forma sencilla</p>
+                
+                <div class="grid-features">
+                    <div class="feature-item">
+                        <span class="icono-feature">📥</span>
+                        <span>Registrar Llegada</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icono-feature">👤</span>
+                        <span>Asignar Equipos</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icono-feature">🗑️</span>
+                        <span>Dar de Baja</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icono-feature">📊</span>
+                        <span>Reportes</span>
+                    </div>
+                </div>
+
+                <div class="info-empresa">
+                    <p><strong>Fresenius Medical Care</strong></p>
+                    <p style="font-size: 13px; color: rgba(255,255,255,0.7);">Sistema de Gestión de Inventario</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../Funcionalidades/global.js"></script>
+    <script src="../Funcionalidades/login.js"></script>
+</body>
+</html>

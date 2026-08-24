@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Equipo - Inventarios</title>
+    <link rel="stylesheet" href="../../Style.css">
+</head>
+<body>
+
+    <header class="appbar-flutter">
+        <div class="logo-appbar">
+            <div class="logo-icon">📦</div>
+            <div class="logo-texto">
+                <h1>Inventarios</h1>
+                <p>Gestión de Recursos</p>
+            </div>
+        </div>
+
+        <ul class="menu-appbar">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="registrar-llegada.html">Registrar Llegada</a></li>
+            <li><a href="asignar-equipo.html" class="activo">Asignar Equipo</a></li>
+            <li><a href="dar-baja.html">Dar de Baja</a></li>
+            <li><a href="consultar.html">Consultar</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+
+        <div class="usuario-appbar">
+            <div class="usuario-info">
+                <span class="usuario-nombre" id="usuario-nombre">Usuario</span>
+                <span class="usuario-rol">Sistema</span>
+            </div>
+            <button class="btn-salir-appbar" id="btn-salir">Salir</button>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <div class="encabezado-pagina">
+            <h1>Asignar Equipo</h1>
+            <p>Asigne elementos a responsables</p>
+        </div>
+
+        <div class="formulario-container">
+            <form id="form-asignacion" class="formulario-principal">
+                
+                <fieldset class="fieldset-seccion">
+                    <legend>Paso 1: Seleccionar Elemento</legend>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario full-width">
+                            <label class="etiqueta-campo">Serial o Código *</label>
+                            <div style="display: flex; gap: 12px;">
+                                <input type="text" id="serial-buscar" class="input-campo" placeholder="Ingrese serial o código" style="flex: 1;" required>
+                                <button type="button" id="btn-buscar-elemento" class="btn-primario">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="info-elemento" style="display: none;">
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; border-left: 4px solid #2a5298;">
+                            <p><strong>Descripción:</strong> <span id="desc-elemento">-</span></p>
+                            <p><strong>Serial:</strong> <span id="serial-elemento">-</span></p>
+                            <p><strong>Condición:</strong> <span id="cond-elemento">-</span></p>
+                            <p><strong>Estado:</strong> <span id="estado-elemento">-</span></p>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset id="fieldset-asignacion" class="fieldset-seccion" style="display: none;">
+                    <legend>Paso 2: Datos de Asignación</legend>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Responsable *</label>
+                            <input type="text" id="responsable" class="input-campo" placeholder="Nombre del responsable" required>
+                        </div>
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Fecha *</label>
+                            <input type="date" id="fecha-asignacion" class="input-campo" required>
+                        </div>
+                    </div>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Departamento</label>
+                            <input type="text" id="departamento" class="input-campo" placeholder="Ej: IT, RRHH">
+                        </div>
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Ubicación de Uso</label>
+                            <input type="text" id="ubicacion-uso" class="input-campo" placeholder="Oficina 101">
+                        </div>
+                    </div>
+
+                    <fieldset class="fieldset-seccion" style="border: 1px solid #ddd;">
+                        <legend>Acta de Asignación</legend>
+
+                        <div class="fila-formulario">
+                            <div class="campo-formulario">
+                                <label>
+                                    <input type="checkbox" id="generar-acta-asignacion">
+                                    Generar Acta
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="vista-acta-asignacion" style="display: none;">
+                            <div class="vista-previa-acta">
+                                <div class="acta-titulo">ACTA DE ASIGNACIÓN</div>
+                                <div class="acta-contenido">
+                                    <div class="acta-linea">
+                                        <strong>Fecha:</strong> <span id="acta-fecha-asig">-</span>
+                                    </div>
+                                    <div class="acta-linea">
+                                        <strong>Elemento:</strong> <span id="acta-desc-asig">-</span>
+                                    </div>
+                                    <div class="acta-linea">
+                                        <strong>Responsable:</strong> <span id="acta-resp-asig">-</span>
+                                    </div>
+                                    <div class="acta-linea">
+                                        <strong>Departamento:</strong> <span id="acta-depto-asig">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                                <p style="margin: 0 0 12px 0; font-weight: 700;">Guardar acta como PDF</p>
+                                <input type="file" id="archivo-acta-asignacion" class="input-campo" accept=".pdf" style="margin-top: 8px;">
+                                <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Ruta: \\Servidor\Inventario\Asignaciones\</p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </fieldset>
+
+                <div class="grupo-botones">
+                    <button type="submit" id="btn-finalizar-asignacion" class="btn-primario" style="display: none;">Finalizar Asignación</button>
+                    <a href="inicio.html" class="btn-terciario">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-app">
+        <p>&copy; 2026 Inventarios - Gestión de Recursos</p>
+    </footer>
+
+    <script src="../Funcionalidades/global.js"></script>
+    <script src="funciones/asignacion.js"></script>
+</body>
+</html>

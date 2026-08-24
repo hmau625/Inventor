@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Inventarios</title>
+    <link rel="stylesheet" href="../../Style.css">
+</head>
+<body>
+
+    <header class="appbar-flutter">
+        <div class="logo-appbar">
+            <div class="logo-icon">📦</div>
+            <div class="logo-texto">
+                <h1>Inventarios</h1>
+                <p>Gestión de Recursos</p>
+            </div>
+        </div>
+
+        <ul class="menu-appbar">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="registrar-llegada.html">Registrar Llegada</a></li>
+            <li><a href="asignar-equipo.html">Asignar Equipo</a></li>
+            <li><a href="dar-baja.html">Dar de Baja</a></li>
+            <li><a href="consultar.html">Consultar</a></li>
+            <li><a href="admin.html" class="activo">Admin</a></li>
+        </ul>
+
+        <div class="usuario-appbar">
+            <div class="usuario-info">
+                <span class="usuario-nombre" id="usuario-nombre">Usuario</span>
+                <span class="usuario-rol">Sistema</span>
+            </div>
+            <button class="btn-salir-appbar" id="btn-salir">Salir</button>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <div class="encabezado-pagina">
+            <h1>Administración</h1>
+            <p>Gestione categorías y configuración</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid var(--color-gris-claro);">
+            <button class="tab-boton activo" data-tab="tab-categorias">Categorías</button>
+            <button class="tab-boton" data-tab="tab-reportes">Reportes</button>
+        </div>
+
+        <div id="tab-categorias" class="contenido-tab activo">
+            <div class="formulario-container">
+                <h2 style="margin-bottom: 20px;">Gestionar Categorías</h2>
+
+                <div style="display: flex; gap: 12px; margin-bottom: 25px;">
+                    <input type="text" id="nueva-categoria" class="input-campo" placeholder="Nueva categoría" style="flex: 1; max-width: 300px;">
+                    <button type="button" id="btn-agregar-categoria" class="btn-primario">Agregar</button>
+                </div>
+
+                <div class="tabla-container">
+                    <table class="tabla-principal">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Elementos</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-categorias">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-reportes" class="contenido-tab">
+            <div class="formulario-container">
+                <h2 style="margin-bottom: 20px;">Reportes</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <button type="button" class="btn-primario" onclick="generarReporte('general')">
+                        Reporte General
+                    </button>
+                    <button type="button" class="btn-primario" onclick="generarReporte('categorias')">
+                        Por Categoría
+                    </button>
+                    <button type="button" class="btn-primario" onclick="generarReporte('asignados')">
+                        Asignados
+                    </button>
+                    <button type="button" class="btn-primario" onclick="generarReporte('bajas')">
+                        Bajas
+                    </button>
+                </div>
+
+                <div id="contenedor-reporte" style="display: none; margin-top: 30px;">
+                    <h3>Vista Previa</h3>
+                    <div id="contenido-reporte"></div>
+                    <button type="button" class="btn-primario" style="margin-top: 20px;">Descargar PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-app">
+        <p>&copy; 2026 Inventarios - Gestión de Recursos</p>
+    </footer>
+
+    <script src="../Funcionalidades/global.js"></script>
+    <script src="../Funcionalidades/login.js"></script>
+</body>
+</html>

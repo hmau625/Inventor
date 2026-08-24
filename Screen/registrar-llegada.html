@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Llegada - Inventarios</title>
+    <link rel="stylesheet" href="../../Style.css">
+</head>
+<body>
+
+    <header class="appbar-flutter">
+        <div class="logo-appbar">
+            <div class="logo-icon">📦</div>
+            <div class="logo-texto">
+                <h1>Inventarios</h1>
+                <p>Gestión de Recursos</p>
+            </div>
+        </div>
+
+        <ul class="menu-appbar">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="registrar-llegada.html" class="activo">Registrar Llegada</a></li>
+            <li><a href="asignar-equipo.html">Asignar Equipo</a></li>
+            <li><a href="dar-baja.html">Dar de Baja</a></li>
+            <li><a href="consultar.html">Consultar</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+
+        <div class="usuario-appbar">
+            <div class="usuario-info">
+                <span class="usuario-nombre" id="usuario-nombre">Usuario</span>
+                <span class="usuario-rol">Sistema</span>
+            </div>
+            <button class="btn-salir-appbar" id="btn-salir">Salir</button>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <div class="encabezado-pagina">
+            <h1>Registrar Llegada de Elemento</h1>
+            <p>Ingrese los datos del elemento que está llegando</p>
+        </div>
+
+        <div class="formulario-container">
+            <form id="form-llegada" class="formulario-principal">
+                
+                <fieldset class="fieldset-seccion">
+                    <legend>Información Básica</legend>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Tipo de Elemento *</label>
+                            <input type="text" id="tipo-elemento" class="input-campo" placeholder="Computadora, Monitor, Teclado" required>
+                        </div>
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Marca y Modelo</label>
+                            <input type="text" id="marca" class="input-campo" placeholder="Dell Inspiron 15">
+                        </div>
+                    </div>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario full-width">
+                            <label class="etiqueta-campo">Descripción *</label>
+                            <textarea class="textarea-campo" id="descripcion" placeholder="Describa detalladamente el elemento" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Serial</label>
+                            <input type="text" id="serial" class="input-campo" placeholder="Número de serie">
+                        </div>
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Código Interno</label>
+                            <input type="text" id="codigo" class="input-campo" placeholder="Código único">
+                        </div>
+                    </div>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Cantidad</label>
+                            <input type="number" id="cantidad" class="input-campo" value="1" min="1">
+                        </div>
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Condición *</label>
+                            <select id="condicion" class="select-campo" required>
+                                <option value="">-- Seleccionar --</option>
+                                <option value="Excelente">Excelente</option>
+                                <option value="Bueno">Bueno</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Defectuoso">Defectuoso</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset-seccion">
+                    <legend>Categorías - Seleccione qué se entrega</legend>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Marque las categorías que se entregarán</p>
+                    
+                    <div id="container-categorias" class="grid-categorias">
+                        <!-- Se llena con JS -->
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset-seccion">
+                    <legend>Información Adicional</legend>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Fecha de Ingreso *</label>
+                            <input type="date" id="fecha-ingreso" class="input-campo" required>
+                        </div>
+                        <div class="campo-formulario">
+                            <label class="etiqueta-campo">Ubicación</label>
+                            <input type="text" id="ubicacion" class="input-campo" placeholder="Bodega A, Piso 2">
+                        </div>
+                    </div>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario full-width">
+                            <label class="etiqueta-campo">Observaciones</label>
+                            <textarea class="textarea-campo" id="observaciones" placeholder="Observaciones adicionales"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset-seccion">
+                    <legend>Acta de Entrada (Opcional)</legend>
+
+                    <div class="fila-formulario">
+                        <div class="campo-formulario">
+                            <label>
+                                <input type="checkbox" id="generar-acta">
+                                Generar Acta
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="vista-acta" style="display: none;">
+                        <div class="vista-previa-acta">
+                            <div class="acta-titulo">ACTA DE ENTRADA</div>
+                            <div class="acta-contenido">
+                                <div class="acta-linea">
+                                    <strong>Fecha:</strong> <span id="acta-fecha">-</span>
+                                </div>
+                                <div class="acta-linea">
+                                    <strong>Descripción:</strong> <span id="acta-desc">-</span>
+                                </div>
+                                <div class="acta-linea">
+                                    <strong>Serial/Código:</strong> <span id="acta-serial">-</span>
+                                </div>
+                                <div class="acta-linea">
+                                    <strong>Condición:</strong> <span id="acta-cond">-</span>
+                                </div>
+                                <div class="acta-linea">
+                                    <strong>Categorías Entregadas:</strong> <span id="acta-cats">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                            <p style="margin: 0 0 12px 0; font-weight: 700;">Guardar acta como PDF</p>
+                            <input type="file" id="archivo-acta" class="input-campo" accept=".pdf" style="margin-top: 8px;">
+                            <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Ruta: \\Servidor\Inventario\Entradas\</p>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="grupo-botones">
+                    <button type="submit" class="btn-primario">Registrar Elemento</button>
+                    <button type="reset" class="btn-secundario">Limpiar</button>
+                    <a href="inicio.html" class="btn-terciario">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-app">
+        <p>&copy; 2026 Inventarios - Sistema de Gestión</p>
+    </footer>
+
+    <script src="../Funcionalidades/global.js"></script>
+    <script src="funciones/registro.js"></script>
+</body>
+</html>

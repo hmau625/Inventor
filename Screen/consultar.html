@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar - Inventarios</title>
+    <link rel="stylesheet" href="../../Style.css">
+</head>
+<body>
+
+    <header class="appbar-flutter">
+        <div class="logo-appbar">
+            <div class="logo-icon">📦</div>
+            <div class="logo-texto">
+                <h1>Inventarios</h1>
+                <p>Gestión de Recursos</p>
+            </div>
+        </div>
+
+        <ul class="menu-appbar">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="registrar-llegada.html">Registrar Llegada</a></li>
+            <li><a href="asignar-equipo.html">Asignar Equipo</a></li>
+            <li><a href="dar-baja.html">Dar de Baja</a></li>
+            <li><a href="consultar.html" class="activo">Consultar</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+
+        <div class="usuario-appbar">
+            <div class="usuario-info">
+                <span class="usuario-nombre" id="usuario-nombre">Usuario</span>
+                <span class="usuario-rol">Sistema</span>
+            </div>
+            <button class="btn-salir-appbar" id="btn-salir">Salir</button>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <div class="encabezado-pagina">
+            <h1>Consultar Inventario</h1>
+            <p>Busque y filtre elementos</p>
+        </div>
+
+        <div class="formulario-container">
+            <h2 style="margin-bottom: 20px; color: var(--color-primario);">Filtros de Búsqueda</h2>
+
+            <div class="fila-formulario">
+                <div class="campo-formulario">
+                    <label class="etiqueta-campo">Serial</label>
+                    <input type="text" id="buscar-serial" class="input-campo" placeholder="Buscar por serial">
+                </div>
+                <div class="campo-formulario">
+                    <label class="etiqueta-campo">Descripción</label>
+                    <input type="text" id="buscar-descripcion" class="input-campo" placeholder="Buscar descripción">
+                </div>
+                <div class="campo-formulario">
+                    <label class="etiqueta-campo">Estado</label>
+                    <select id="filtro-estado" class="select-campo">
+                        <option value="">-- Todos --</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Asignado">Asignado</option>
+                        <option value="Dado de Baja">Dado de Baja</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grupo-botones">
+                <button type="button" id="btn-aplicar-filtros" class="btn-primario">Aplicar Filtros</button>
+                <button type="button" id="btn-limpiar-filtros" class="btn-secundario">Limpiar</button>
+            </div>
+        </div>
+
+        <div class="tabla-container">
+            <table class="tabla-principal">
+                <thead>
+                    <tr>
+                        <th>Serial/Código</th>
+                        <th>Descripción</th>
+                        <th>Categorías</th>
+                        <th>Condición</th>
+                        <th>Estado</th>
+                        <th>Ubicación</th>
+                        <th>Ingreso</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-inventario">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer-app">
+        <p>&copy; 2026 Inventarios - Gestión de Recursos</p>
+    </footer>
+
+    <script src="../Funcionalidades/global.js"></script>
+    <script src="funciones/consulta.js"></script>
+</body>
+</html>
