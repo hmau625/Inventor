@@ -2,23 +2,23 @@
 
 document.getElementById('formulario-login')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('email-usuario').value.trim();
+    const usuario = document.getElementById('usuario-login')?.value.trim();
     const password = document.getElementById('password-usuario').value;
     const msgError = document.getElementById('mensaje-error');
     
     msgError.textContent = '';
     
-    const usuario = USUARIOS.find(u => u.email === email);
+    const usuarioObj = USUARIOS.find(u => u.nombre === usuario);
     
-    if (!usuario || password !== PASS) {
-        msgError.textContent = 'Email o contraseña incorrectos';
+    if (!usuarioObj || password !== PASS) {
+        msgError.textContent = 'Usuario o contraseña incorrectos';
         msgError.classList.add('mostrar');
         return;
     }
     
     const sesion = {
-        email: email,
-        nombre: usuario.nombre,
+        nombre: usuario,
+        rol: usuarioObj.rol,
         fechaLogin: new Date().toISOString()
     };
     

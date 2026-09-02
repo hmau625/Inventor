@@ -3,96 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Hmau Inventarios</title>
+    <title>Inicio - IT Inventarios</title>
     <link rel="stylesheet" href="../../Style.css">
 </head>
-<body class="fondo-login">
+<body>
 
-    <div class="contenedor-login-dual">
-        <!-- MITAD IZQUIERDA - FORMULARIO -->
-        <div class="mitad-formulario">
-            <div class="tarjeta-login">
-                <div class="cabeza-login">
-                    <h1 class="titulo-login">Hmau Inventarios</h1>
-                    <p class="subtitulo-login">Sistema de Gestión</p>
-                </div>
-
-                <form id="formulario-login" class="formulario-login">
-                    <div class="grupo-input">
-                        <label for="email-usuario" class="etiqueta-login">Email</label>
-                        <input 
-                            type="email" 
-                            id="email-usuario" 
-                            class="input-login" 
-                            placeholder="usuario@freseniusmedicalcare.com" 
-                            required
-                        >
-                    </div>
-
-                    <div class="grupo-input">
-                        <label for="password-usuario" class="etiqueta-login">Contraseña</label>
-                        <input 
-                            type="password" 
-                            id="password-usuario" 
-                            class="input-login" 
-                            placeholder="••••••••" 
-                            required
-                        >
-                    </div>
-
-                    <button type="submit" class="btn-login">Iniciar Sesión</button>
-                </form>
-
-                <div id="mensaje-error" class="alerta-login"></div>
-
-                <div class="caja-usuarios">
-                    <h3 class="titulo-usuarios">Usuarios de Prueba</h3>
-                    <ul class="lista-usuarios">
-                        <li>harold.montenegro@freseniusmedicalcare.com</li>
-                        <li>edwar.ardila@freseniusmedicalcare.com</li>
-                    </ul>
-                    <div class="info-contrasena">
-                        <p>Contraseña: <code class="codigo-contrasena">Admin123*+</code></p>
-                    </div>
-                </div>
+    <header class="appbar-flutter">
+        <div class="logo-appbar">
+            <div class="logo-icon">📦</div>
+            <div class="logo-texto">
+                <h1>IT Inventarios</h1>
+                <p>Gestión de Recursos</p>
             </div>
         </div>
 
-        <!-- MITAD DERECHA - DISEÑO LIBRE -->
-        <div class="mitad-decoracion">
-            <div class="contenido-deco">
-                <div class="deco-grande">📦</div>
-                <h2 class="titulo-deco">Gestiona tu Inventario</h2>
-                <p class="parrafo-deco">Controla entrada, asignación y baja de elementos de forma sencilla</p>
-                
-                <div class="grid-features">
-                    <div class="feature-item">
-                        <span class="icono-feature">📥</span>
-                        <span>Registrar Llegada</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icono-feature">👤</span>
-                        <span>Asignar Equipos</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icono-feature">🗑️</span>
-                        <span>Dar de Baja</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icono-feature">📊</span>
-                        <span>Reportes</span>
-                    </div>
-                </div>
+        <ul class="menu-appbar">
+            <li><a href="inicio.html" class="activo">Inicio</a></li>
+            <li><a href="registrar-llegada.html">Registrar Llegada</a></li>
+            <li><a href="asignar-equipo.html">Asignar Equipo</a></li>
+            <li><a href="dar-baja.html">Dar de Baja</a></li>
+            <li><a href="consultar.html">Consultar</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
 
-                <div class="info-empresa">
-                    <p><strong>Fresenius Medical Care</strong></p>
-                    <p style="font-size: 13px; color: rgba(255,255,255,0.7);">Sistema de Gestión de Inventario</p>
-                </div>
+        <div class="usuario-appbar">
+            <div class="usuario-info">
+                <span class="usuario-nombre" id="usuario-nombre">Usuario</span>
+                <span class="usuario-rol">Sistema</span>
             </div>
+            <button class="btn-salir-appbar" id="btn-salir">Salir</button>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <div class="encabezado-pagina">
+            <h1>Bienvenido al Dashboard</h1>
+            <p id="fecha-actual"></p>
+        </div>
+
+        <div class="grid-estadisticas">
+            <div class="tarjeta-stat stat-total">
+                <h3>Total Elementos</h3>
+                <p id="stat-total" class="numero-stat">0</p>
+            </div>
+
+            <div class="tarjeta-stat stat-disponibles">
+                <h3>Disponibles</h3>
+                <p id="stat-disponibles" class="numero-stat">0</p>
+            </div>
+
+            <div class="tarjeta-stat stat-asignados">
+                <h3>Asignados</h3>
+                <p id="stat-asignados" class="numero-stat">0</p>
+            </div>
+
+            <div class="tarjeta-stat stat-bajas">
+                <h3>Dados de Baja</h3>
+                <p id="stat-bajas" class="numero-stat">0</p>
+            </div>
+        </div>
+
+        <div class="seccion-acciones">
+            <h2>Acciones Rápidas</h2>
+            <div class="grid-acciones">
+                <a href="registrar-llegada.html" class="boton-accion accion-entrada">
+                    <div class="icono-boton">📥</div>
+                    <span>Registrar Llegada</span>
+                </a>
+                <a href="asignar-equipo.html" class="boton-accion accion-asignacion">
+                    <div class="icono-boton">👤</div>
+                    <span>Asignar Equipo</span>
+                </a>
+                <a href="dar-baja.html" class="boton-accion accion-baja">
+                    <div class="icono-boton">🗑️</div>
+                    <span>Dar de Baja</span>
+                </a>
+                <a href="consultar.html" class="boton-accion accion-consulta">
+                    <div class="icono-boton">🔍</div>
+                    <span>Consultar</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="tabla-container">
+            <h2 style="margin-bottom: 20px; color: var(--color-primario);">Últimas Operaciones</h2>
+            <table class="tabla-principal">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Tipo</th>
+                        <th>Elemento</th>
+                        <th>Usuario</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-operaciones">
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <script src="../Funcionalidades/global.js"></script>
-    <script src="../Funcionalidades/login.js"></script>
+    <footer class="footer-app">
+        <p>&copy; 2026 IT Inventarios - Gestión de Recursos</p>
+    </footer>
+
+    <script src="../../Funcionalidades/global.js"></script>
+    <script src="../../Funcionalidades/inicio.js"></script>
 </body>
 </html>

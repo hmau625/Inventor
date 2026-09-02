@@ -1,9 +1,10 @@
 // Global - Autenticación y variables globales
 
 const USUARIOS = [
-    { email: 'harold.montenegro@freseniusmedicalcare.com', nombre: 'Harold Montenegro' },
-    { email: 'edwar.ardila@freseniusmedicalcare.com', nombre: 'Edwar Ardila' }
+    { nombre: 'harold.montenegro', rol: 'Administrator' },
+    { nombre: 'edwar.ardila', rol: 'Administrator' }
 ];
+
 const PASS = 'Admin123*+';
 
 const CATEGORIAS_DEFAULT = [
@@ -24,7 +25,7 @@ function verificarSesion() {
     const usuario = localStorage.getItem('usuarioLogueado');
     const ruta = window.location.pathname.split('/').pop() || 'login.html';
     
-    if (ruta === 'login.html' || ruta === '') {
+    if (ruta === 'login.html' || ruta === '' || ruta === 'Screen') {
         if (usuario) window.location.href = 'inicio.html';
     } else {
         if (!usuario) window.location.href = 'login.html';

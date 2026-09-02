@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Hmau Inventarios</title>
+    <title>Login - IT Inventarios</title>
     <link rel="stylesheet" href="../../Style.css">
 </head>
 <body class="fondo-login">
 
     <div class="contenedor-login-dual">
-        <!--- FORMULARIO -->
+        
         <div class="mitad-formulario">
             <div class="tarjeta-login">
                 <div class="cabeza-login">
-                    <h1 class="titulo-login">Hmau Inventarios</h1>
+                    <h1 class="titulo-login">IT Inventarios</h1>
                     <p class="subtitulo-login">Sistema de Gestión</p>
                 </div>
 
                 <form id="formulario-login" class="formulario-login">
                     <div class="grupo-input">
-                        <label for="email-usuario" class="etiqueta-login">Email</label>
+                        <label for="usuario-login" class="etiqueta-login">Usuario</label>
                         <input 
-                            type="email" 
-                            id="email-usuario" 
+                            type="text" 
+                            id="usuario-login" 
                             class="input-login" 
-                            placeholder="usuario@freseniusmedicalcare.com" 
+                            placeholder="usuario" 
                             required
                         >
                     </div>
@@ -48,8 +48,8 @@
                 <div class="caja-usuarios">
                     <h3 class="titulo-usuarios">Usuarios de Prueba</h3>
                     <ul class="lista-usuarios">
-                        <li>harold.montenegro@freseniusmedicalcare.com</li>
-                        <li>edwar.ardila@freseniusmedicalcare.com</li>
+                        <li>harold.montenegro</li>
+                        <li>edwar.ardila</li>
                     </ul>
                     <div class="info-contrasena">
                         <p>Contraseña: <code class="codigo-contrasena">Admin123*+</code></p>
@@ -58,12 +58,11 @@
             </div>
         </div>
 
-        <!-- MITAD DERECHA - DISEÑO LIBRE -->
         <div class="mitad-decoracion">
             <div class="contenido-deco">
                 <div class="deco-grande">📦</div>
                 <h2 class="titulo-deco">Gestiona tu Inventario</h2>
-                <p class="parrafo-deco">Controla entrada, asignación y baja de elementos de forma sencilla</p>
+                <p class="parrafo-deco">Control completo de entrada, asignación y baja de elementos</p>
                 
                 <div class="grid-features">
                     <div class="feature-item">
@@ -85,14 +84,14 @@
                 </div>
 
                 <div class="info-empresa">
-                    <p><strong>Fresenius Medical Care</strong></p>
+                    <p><strong>IT Department</strong></p>
                     <p style="font-size: 13px; color: rgba(255,255,255,0.7);">Sistema de Gestión de Inventario</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../Funcionalidades/global.js"></script>
-    <script src="../Funcionalidades/login.js"></script>
+    <script src="../../Funcionalidades/global.js"></script>
+    <script src="../../Funcionalidades/login.js"></script>
 </body>
 </html>
