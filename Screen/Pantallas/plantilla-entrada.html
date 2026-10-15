@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acta de Entrada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .contenedor-acta {
+            background: white;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .encabezado-acta {
+            display: table;
+            width: 100%;
+            border: 2px solid #000;
+            margin-bottom: 0;
+        }
+        
+        .logo-seccion {
+            display: table-cell;
+            width: 25%;
+            border-right: 2px solid #000;
+            padding: 15px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .logo-seccion img {
+            max-width: 120px;
+            max-height: 80px;
+        }
+        
+        .logo-placeholder {
+            width: 120px;
+            height: 80px;
+            background: #f0f0f0;
+            border: 2px dashed #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #999;
+            margin: 0 auto;
+        }
+        
+        .titulo-seccion {
+            display: table-cell;
+            width: 75%;
+            padding: 15px;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+        .titulo-acta {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+        
+        .tabla-datos {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000;
+            margin-bottom: 0;
+        }
+        
+        .tabla-datos td {
+            border: 1px solid #000;
+            padding: 8px 5px;
+            font-size: 12px;
+        }
+        
+        .tabla-datos .etiqueta {
+            font-weight: bold;
+            background: #f5f5f5;
+            width: 20%;
+        }
+        
+        .tabla-datos .valor {
+            font-size: 11px;
+        }
+        
+        .tabla-datos .valor-largo {
+            width: 40%;
+        }
+        
+        .seccion-titulo {
+            background: #fff;
+            border: 1px solid #000;
+            border-top: none;
+            padding: 8px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+        
+        .tabla-recursos {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000;
+            margin-bottom: 0;
+        }
+        
+        .tabla-recursos th {
+            background: #fff;
+            border: 1px solid #000;
+            padding: 8px 5px;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .tabla-recursos td {
+            border: 1px solid #000;
+            padding: 8px 5px;
+            font-size: 11px;
+            text-align: left;
+        }
+        
+        .tabla-recursos td.centro {
+            text-align: center;
+        }
+        
+        .seccion-obligacion {
+            border: 1px solid #000;
+            border-top: none;
+            padding: 12px;
+            font-size: 11px;
+            text-align: justify;
+            line-height: 1.4;
+        }
+        
+        .fecha-suscripcion {
+            width: 100%;
+            border: 1px solid #000;
+            border-top: none;
+            padding: 12px;
+            font-size: 11px;
+        }
+        
+        .fila-fecha {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .item-fecha {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .linea-fecha {
+            border-bottom: 1px solid #000;
+            padding: 5px 0;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        .firmas-seccion {
+            width: 100%;
+            border: 1px solid #000;
+            border-top: none;
+            padding: 20px;
+            font-size: 11px;
+        }
+        
+        .fila-firmas {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        
+        .firma-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .espacio-firma {
+            height: 50px;
+            border-bottom: 1px solid #000;
+            margin-bottom: 5px;
+        }
+        
+        .nombre-firma {
+            font-weight: bold;
+            margin-top: 8px;
+            font-size: 11px;
+        }
+        
+        .pie-pagina {
+            border: 1px solid #000;
+            border-top: none;
+            padding: 10px 5px;
+            text-align: center;
+            font-size: 10px;
+            background: #f5f5f5;
+        }
+        
+        .botones-accion {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+        
+        button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .btn-descargar {
+            background: #1e3c72;
+            color: white;
+        }
+        
+        .btn-imprimir {
+            background: #666;
+            color: white;
+        }
+        
+        .btn-volver {
+            background: #ccc;
+            color: #333;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .contenedor-acta {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .botones-accion {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-acta">
+        
+        <!-- ENCABEZADO CON LOGO -->
+        <div class="encabezado-acta">
+            <div class="logo-seccion">
+                <div class="logo-placeholder">
+                    [LOGO AQUÍ]
+                </div>
+            </div>
+            <div class="titulo-seccion">
+                <div class="titulo-acta">
+                    ENTREGA DE RECURSOS TECNOLOGICOS PARA EL CUMPLIMIENTO DE LAS FUNCIONES LABORALES
+                </div>
+            </div>
+        </div>
+
+        <!-- DATOS BÁSICOS -->
+        <table class="tabla-datos">
+            <tr>
+                <td class="etiqueta">Nombre del empleado:</td>
+                <td class="valor valor-largo" id="nombre-empleado">-</td>
+                <td class="etiqueta">Sede:</td>
+                <td class="valor" id="sede-acta">-</td>
+            </tr>
+            <tr>
+                <td class="etiqueta">C.C.</td>
+                <td class="valor valor-largo" id="cc-empleado">-</td>
+                <td class="etiqueta">Área:</td>
+                <td class="valor" id="area-acta">-</td>
+            </tr>
+            <tr>
+                <td class="etiqueta">Cargo:</td>
+                <td class="valor valor-largo" id="cargo-acta">-</td>
+                <td colspan="2"></td>
+            </tr>
+        </table>
+
+        <!-- SECCIÓN RECURSOS -->
+        <div class="seccion-titulo">Descripción de los Recursos Tecnológicos que se Entregan</div>
+        
+        <table class="tabla-recursos">
+            <thead>
+                <tr>
+                    <th>Tipo de Recurso</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Serial / IMEI</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-recursos">
+            </tbody>
+        </table>
+
+        <!-- SECCIÓN OBLIGACIÓN -->
+        <div class="seccion-titulo">Obligación Especial del Trabajador</div>
+        
+        <div class="seccion-obligacion">
+            A partir de la fecha de suscripción del presente documento, el trabajador se compromete a conservar y restituir en buen estado, salvo el deterioro natural, los equipos y recursos descritos anteriormente que el trabajador deberá recibir. El trabajador se compromete a guardia estos recursos (los descritos en el documento) se le entregan para el correcto desempeño de las funciones a su cargo, por lo que el trabajador asume la responsabilidad por su daño, pérdida o robo.
+        </div>
+
+        <!-- FECHA SUSCRIPCIÓN -->
+        <div class="fecha-suscripcion">
+            <div class="fila-fecha">
+                <div class="item-fecha">
+                    <span>Firmado en:</span> <span id="ciudad-acta">-</span>
+                </div>
+                <div class="item-fecha">
+                    <span>a los</span>
+                    <div class="linea-fecha" id="dia-acta">-</div>
+                </div>
+                <div class="item-fecha">
+                    <span>días del mes de</span>
+                    <div class="linea-fecha" id="mes-acta">-</div>
+                </div>
+                <div class="item-fecha">
+                    <span>del año</span>
+                    <div class="linea-fecha" id="year-acta">-</div>
+                </div>
+            </tr>
+        </div>
+
+        <!-- FIRMAS -->
+        <div class="firmas-seccion">
+            <div class="fila-firmas">
+                <div class="firma-item">
+                    <span>Firmado en:</span>
+                    <div class="espacio-firma" id="firma-empresa"></div>
+                    <div class="nombre-firma">IT Department</div>
+                    <div style="font-size: 10px; margin-top: 3px;">Gerencia de Sistemas y Proyectos IT</div>
+                </div>
+                <div class="firma-item">
+                    <span>Trabajador</span>
+                    <div class="espacio-firma" id="firma-trabajador"></div>
+                    <div class="nombre-firma" id="nombre-trabajador-firma">-</div>
+                    <div style="font-size: 10px; margin-top: 3px;">C.C. <span id="cc-trabajador-firma">-</span></div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px; font-size: 11px; font-weight: bold;">
+                IT Department<br>
+                Gestión de Recursos Tecnológicos
+            </div>
+        </div>
+
+        <!-- PIE PÁGINA -->
+        <div class="pie-pagina">
+            *ESTE FORMATO APLICA PARA IT DEPARTMENT Y EMPRESAS ASOCIADAS
+        </div>
+
+    </div>
+
+    <div class="botones-accion">
+        <button class="btn-imprimir" onclick="window.print()">Imprimir</button>
+        <button class="btn-descargar" onclick="descargarPDF()">Descargar PDF</button>
+        <button class="btn-volver" onclick="window.history.back()">Volver</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarDatosEntrada();
+        });
+
+        function cargarDatosEntrada() {
+            const datos = JSON.parse(sessionStorage.getItem('datosEntrada') || '{}');
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogueado') || '{}');
+            
+            const ahora = new Date();
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                          'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+            document.getElementById('nombre-empleado').textContent = datos.nombreEmpleado || usuario.nombre || '-';
+            document.getElementById('cc-empleado').textContent = datos.ccEmpleado || '-';
+            document.getElementById('sede-acta').textContent = datos.sede || 'Principal';
+            document.getElementById('area-acta').textContent = datos.area || 'IT';
+            document.getElementById('cargo-acta').textContent = datos.cargo || 'Técnico';
+            
+            document.getElementById('ciudad-acta').textContent = datos.ciudad || 'Bogotá';
+            document.getElementById('dia-acta').textContent = ahora.getDate();
+            document.getElementById('mes-acta').textContent = meses[ahora.getMonth()];
+            document.getElementById('year-acta').textContent = ahora.getFullYear();
+            
+            document.getElementById('nombre-trabajador-firma').textContent = datos.nombreEmpleado || usuario.nombre || '-';
+            document.getElementById('cc-trabajador-firma').textContent = datos.ccEmpleado || '-';
+
+            const tbody = document.getElementById('tbody-recursos');
+            if (datos.descripcion) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td>${datos.tipo || datos.descripcion}</td>
+                        <td>${datos.marca || 'N/A'}</td>
+                        <td>${datos.modelo || 'N/A'}</td>
+                        <td>${datos.serial || 'N/A'}</td>
+                    </tr>
+                `;
+            }
+        }
+
+        function descargarPDF() {
+            alert('Función de descarga PDF disponible próximamente');
+        }
+    </script>
+</body>
+</html>

@@ -1,40 +1,31 @@
-// Dar de Baja
-
-const form = document.getElementById('form-baja');
-const btnBuscar = document.getElementById('btn-buscar-baja');
-const selectDestino = document.getElementById('destino-baja');
-const checkFirma = document.getElementById('requiere-firma-baja');
+// Bajas - Dar de Baja
+// (reemplaza tambien al otro script de bajas que tenias; usa solo este)
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('fecha-baja')) {
-        document.getElementById('fecha-baja').valueAsDate = new Date();
-        document.getElementById('fecha-acta').valueAsDate = new Date();
-        document.getElementById('numero-acta').value = 'AUTO-' + Date.now().toString().slice(-6);
-    }
+    const hoy = new Date().toISOString().split('T')[0];
+    const fechaBaja = document.getElementById('fecha-baja');
+    if (fechaBaja) fechaBaja.value = hoy;
     
-    btnBuscar?.addEventListener('click', buscarElementoBaja);
-    selectDestino?.addEventListener('change', mostrarOpcionesDestino);
-    checkFirma?.addEventListener('change', (e) => {
-        const firmaDiv = document.getElementById('firma-baja');
-        if (firmaDiv) {
-            firmaDiv.style.display = e.target.checked ? 'block' : 'none';
-            if (e.target.checked) inicializarCanvasFirma();
-        }
-    });
-    
-    if (form) form.addEventListener('submit', procesarBaja);
+    document.getElementById('btn-buscar-baja')?.addEventListener('click', buscarElementoBaja);
+    document.getElementById('destino-baja')?.addEventListener('change', mostrarOpcionesAmbiental);
+    document.getElementById('requiere-firma-baja')?.addEventListener('change', mostrarCanvasFirma);
+    document.getElementById('form-baja')?.addEventListener('submit', procesarBaja);
 });
 
+function valor(id) {
+    return (document.getElementById(id)?.value || '').trim();
+}
+
 function buscarElementoBaja() {
-    const serial = document.getElementById('serial-baja')?.value.trim();
+    const serial = valor('serial-baja');
+    
     if (!serial) {
-        alert('Ingrese serial o código');
+        alert('Ingrese un serial o código');
         return;
     }
     
     const inventario = obtenerDatos('inventario', []);
     const elemento = inventario.find(e => e.serial === serial || e.codigo === serial);
-    const infoDiv = document.getElementById('info-elemento-baja');
     
     if (!elemento) {
         alert('Elemento no encontrado');
@@ -42,61 +33,75 @@ function buscarElementoBaja() {
     }
     
     if (elemento.estado === 'Dado de Baja') {
-        alert('Elemento ya fue dado de baja');
+        alert('Este elemento ya fue dado de baja');
         return;
     }
     
     document.getElementById('desc-baja').textContent = elemento.descripcion;
-    document.getElementById('serial-baja-info').textContent = elemento.serial || 'N/A';
+    document.getElementById('serial-baja-info').textContent = elemento.serial || elemento.codigo;
     document.getElementById('cond-baja').textContent = elemento.condicion;
     document.getElementById('estado-baja').textContent = elemento.estado;
     
-    infoDiv.style.display = 'block';
+    document.getElementById('info-elemento-baja').style.display = 'block';
     document.getElementById('fieldset-baja').style.display = 'block';
     document.getElementById('btn-finalizar-baja').style.display = 'block';
     
-    form.dataset.elementoId = elemento.id;
+    document.getElementById('form-baja').dataset.elementoId = elemento.id;
+    document.getElementById('numero-acta').value = 'BJ-' + Date.now().toString().slice(-6);
+    
+    const hoy = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha-acta').value = hoy;
+    if (!valor('fecha-baja')) document.getElementById('fecha-baja').value = hoy;
 }
 
-function mostrarOpcionesDestino() {
-    const destino = selectDestino.value;
-    const fieldAmbiental = document.getElementById('opciones-ambiental');
-    const rutaInfo = document.getElementById('ruta-baja-info');
+function mostrarOpcionesAmbiental(e) {
+    const opcionesAmbiental = document.getElementById('opciones-ambiental');
+    const rutaBaja = document.getElementById('ruta-baja-info');
     
-    if (destino === 'Ambiental') {
-        if (fieldAmbiental) fieldAmbiental.style.display = 'block';
-        if (rutaInfo) rutaInfo.textContent = 'Ruta: \\Servidor\\Inventario\\Bajas\\Ambiental\\';
+    if (e.target.value === 'Ambiental') {
+        opcionesAmbiental.style.display = 'block';
+        rutaBaja.textContent = 'Ruta: \\\\Servidor\\Inventario\\Bajas\\Ambiental\\';
     } else {
-        if (fieldAmbiental) fieldAmbiental.style.display = 'none';
-        if (destino === 'Desecho' && rutaInfo) {
-            rutaInfo.textContent = 'Ruta: \\Servidor\\Inventario\\Bajas\\Desecho\\';
-        } else if (rutaInfo) {
-            rutaInfo.textContent = 'Ruta: \\Servidor\\Inventario\\Entradas\\';
-        }
+        opcionesAmbiental.style.display = 'none';
+        rutaBaja.textContent = 'Ruta: \\\\Servidor\\Inventario\\Bajas\\Desecho\\';
+    }
+}
+
+function mostrarCanvasFirma(e) {
+    const contenedor = document.getElementById('firma-baja');
+    if (e.target.checked) {
+        contenedor.style.display = 'block';
+        inicializarCanvasFirma();
+    } else {
+        contenedor.style.display = 'none';
     }
 }
 
 function inicializarCanvasFirma() {
     const canvas = document.getElementById('canvas-firma-baja');
-    if (!canvas) return;
+    if (canvas.dataset.listo) return;          // evita duplicar los eventos
+    canvas.dataset.listo = '1';
     
     const ctx = canvas.getContext('2d');
     let dibujando = false;
     
     canvas.addEventListener('mousedown', () => dibujando = true);
     canvas.addEventListener('mouseup', () => dibujando = false);
+    canvas.addEventListener('mouseleave', () => dibujando = false);
     canvas.addEventListener('mousemove', (e) => {
         if (!dibujando) return;
+        
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        ctx.fillStyle = '#333';
+        
+        ctx.fillStyle = '#000';
         ctx.beginPath();
         ctx.arc(x, y, 2, 0, Math.PI * 2);
         ctx.fill();
     });
     
-    document.getElementById('btn-limpiar-firma-baja')?.addEventListener('click', () => {
+    document.getElementById('btn-limpiar-firma-baja').addEventListener('click', () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
 }
@@ -104,53 +109,56 @@ function inicializarCanvasFirma() {
 function procesarBaja(e) {
     e.preventDefault();
     
-    const elementoId = form.dataset.elementoId;
+    const elementoId = e.target.dataset.elementoId;
+    const motivo = valor('motivo-baja');
+    const destino = valor('destino-baja');
+    const fechaBaja = valor('fecha-baja');
+    const responsableActa = valor('responsable-acta');
+    
     if (!elementoId) {
-        alert('Seleccione un elemento primero');
+        alert('Busque y seleccione un elemento primero');
+        return;
+    }
+    
+    if (!motivo || !destino || !fechaBaja || !responsableActa) {
+        alert('Complete todos los campos requeridos');
         return;
     }
     
     const inventario = obtenerDatos('inventario', []);
-    const operaciones = obtenerDatos('operaciones', []);
-    const usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    const elemento = inventario.find(el => el.id === elementoId);
     
-    const elemento = inventario.find(e => e.id === elementoId);
     if (!elemento) {
         alert('Elemento no encontrado');
         return;
     }
     
-    const motivo = document.getElementById('motivo-baja')?.value;
-    const fecha = document.getElementById('fecha-baja')?.value;
-    const destino = selectDestino?.value;
+    const datosActa = {
+        numeroActa: valor('numero-acta'),
+        fechaActa: valor('fecha-acta'),
+        responsableActa: responsableActa,
+        ccBaja: valor('cc-responsable-acta'),
+        motivo: motivo,
+        destino: destino,
+        fechaBaja: fechaBaja,
+        tipoResiduo: valor('tipo-residuo'),
+        empresaAmbiental: valor('empresa-ambiental'),
+        tipo: elemento.tipo,
+        marca: elemento.marca,
+        modelo: elemento.modelo,
+        serial: elemento.serial || elemento.codigo,
+        descripcion: elemento.descripcion,
+        condicion: elemento.condicion
+    };
     
-    if (!motivo || !fecha || !destino) {
-        alert('Complete los campos requeridos');
-        return;
+    if (document.getElementById('requiere-firma-baja').checked) {
+        datosActa.firmaData = document.getElementById('canvas-firma-baja').toDataURL();
     }
     
-    elemento.estado = 'Dado de Baja';
-    elemento.motivo_baja = motivo;
-    elemento.fecha_baja = fecha;
-    elemento.destino = destino;
-    
-    if (!elemento.historial) elemento.historial = [];
-    elemento.historial.push({
-        fecha: new Date().toISOString(),
-        tipo: 'Baja',
-        desc: `Dado de baja - ${destino}`
+    // La baja siempre lleva acta: NO se guarda todavia.
+    // Se guarda al confirmar en plantilla-baja.html
+    abrirActa('baja', datosActa, {
+        tipo: 'baja',
+        datos: { elementoId: elementoId, motivo: motivo, destino: destino, fechaBaja: fechaBaja }
     });
-    
-    guardarDatos('inventario', inventario);
-    
-    operaciones.push({
-        fecha: new Date().toISOString(),
-        tipo: 'Baja',
-        elemento: elemento.descripcion,
-        usuario: usuario.nombre
-    });
-    guardarDatos('operaciones', operaciones);
-    
-    alert('Baja registrada correctamente');
-    setTimeout(() => window.location.href = 'inicio.html', 1000);
 }
